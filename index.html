@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portfolio | PM SHRI KENDRIYA VIDYALAYA LUCKNOW</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --secondary: #3b82f6;
+            --accent: #bfdbfe;
+            --light: #f1f5f9;
+            --dark: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Login Styles */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(241, 245, 249, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .login-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .login-title {
+            font-size: 24px;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 25px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .login-input {
+            padding: 12px 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .login-input.error {
+            border-color: var(--danger);
+        }
+
+        .login-error {
+            color: var(--danger);
+            font-size: 14px;
+            margin-top: -5px;
+            text-align: left;
+            display: none;
+        }
+
+        .login-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        .login-footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .main-content {
+            display: none;
+        }
+
+        .main-content.authenticated {
+            display: block;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .school-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .school-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .school-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .school-name {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .school-name h1 {
+            font-size: 18px;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .school-name p {
+            font-size: 14px;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .print-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .print-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Student Info Section */
+        .student-info-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin: 20px 0;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .student-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 40px;
+            overflow: hidden;
+        }
+
+        .student-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .student-details {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .student-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .student-class {
+            font-size: 16px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .student-basic-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: var(--dark);
+            opacity: 0.7;
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 5px;
+            margin: 20px 0;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            padding-bottom: 5px;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .nav-tabs::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .nav-tabs::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 5px;
+        }
+
+        .nav-tab {
+            padding: 10px 20px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            white-space: nowrap;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background-color: var(--light);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-dropdown {
+            padding: 6px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead {
+            background-color: var(--light);
+        }
+
+        th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        tr:hover {
+            background-color: rgba(241, 245, 249, 0.5);
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 30px;
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        .status-complete, .status-resolved {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-overdue, .status-escalated {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .grade-badge {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .grade-a {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .grade-b {
+            background-color: rgba(14, 165, 233, 0.1);
+            color: #0ea5e9;
+        }
+
+        .grade-c {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .grade-d {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        /* Discipline Points */
+        .points-badge {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        /* Progress cards */
+        .progress-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .progress-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            padding: 15px;
+        }
+
+        .progress-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e5e7eb;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .progress-value {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .progress-percentage {
+            font-weight: 600;
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Dashboard Summary */
+        .dashboard-summary {
+            margin-bottom: 30px;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .summary-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .summary-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .icon-blue {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--secondary);
+        }
+
+        .icon-green {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .icon-yellow {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .icon-red {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .summary-info h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .summary-info p {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .school-name h1 {
+                font-size: 16px;
+            }
+
+            .school-name p {
+                font-size: 12px;
+            }
+
+            .school-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .student-name {
+                font-size: 20px;
+            }
+
+            .student-class {
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .school-name p {
+                display: none;
+            }
+
+            .header-container {
+                padding: 10px 15px;
+            }
+
+            .student-photo {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto;
+            }
+
+            .student-details {
+                text-align: center;
+            }
+
+            .student-basic-info {
+                grid-template-columns: 1fr;
+                text-align: left;
+            }
+        }
+
+        /* Empty state */
+        .empty-state {
+            padding: 20px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        /* Print Styles */
+        @media print {
+            header button, 
+            .nav-tabs, 
+            .section-actions,
+            .no-print {
+                display: none !important;
+            }
+
+            .content-section {
+                display: block !important;
+                page-break-after: always;
+            }
+
+            body {
+                background-color: white;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0 !important;
+            }
+
+            table {
+                page-break-inside: auto;
+            }
+
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+
+            thead {
+                display: table-header-group;
+            }
+
+            tfoot {
+                display: table-footer-group;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Overlay -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-card">
+            <div class="login-logo">
+                <img src="https://i.ibb.co/23DtsDdF/kvs-logo-new.jpg" alt="School Logo">
+            </div>
+            <h2 class="login-title">Student Portfolio</h2>
+            <p class="login-subtitle">PM SHRI KENDRIYA VIDYALAYA, LUCKNOW</p>
+            
+            <form class="login-form" id="loginForm" onsubmit="return false;">
+                <input type="text" class="login-input" id="admissionInput" placeholder="Enter 5-digit Admission Number" maxlength="5">
+                <div class="login-error" id="admissionError">Please enter a valid 5-digit admission number</div>
+                <button type="button" class="login-btn" id="loginButton">Access Portfolio</button>
+            </form>
+            
+            <div class="login-footer">
+                For assistance, please contact the school administration
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <header>
+            <div class="header-container container">
+                <div class="school-info">
+                    <div class="school-logo">
+                        <img src="https://i.ibb.co/23DtsDdF/kvs-logo-new.jpg" alt="School Logo">
+                    </div>
+                    <div class="school-name">
+                        <h1>PM SHRI KENDRIYA VIDYALAYA</h1>
+                        <p>LUCKNOW</p>
+                    </div>
+                </div>
+                <div class="user-actions">
+                    <button class="print-btn" id="printBtn">
+                        <i class="fas fa-print"></i> Print Report
+                    </button>
+                    <button class="print-btn" id="logoutBtn" style="background-color: #6b7280;">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <!-- Student Info -->
+            <section class="student-info-section">
+                <div class="student-photo">
+                    <img src="/api/placeholder/120/120" alt="Student Photo" id="studentPhoto">
+                </div>
+                <div class="student-details">
+                    <h2 class="student-name" id="studentName">Loading...</h2>
+                    <div class="student-class" id="studentClass">Loading...</div>
+                    <div class="student-basic-info">
+                        <div class="info-item">
+                            <div class="info-label">Admission No.</div>
+                            <div class="info-value" id="admissionNo">Loading...</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Roll No.</div>
+                            <div class="info-value" id="rollNo">Loading...</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Date of Birth</div>
+                            <div class="info-value" id="dob">Loading...</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Contact</div>
+                            <div class="info-value" id="contact">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <div class="nav-tabs">
+                <div class="nav-tab active" data-tab="dashboard">Dashboard</div>
+                <div class="nav-tab" data-tab="subjects">Subject Activities</div>
+                <div class="nav-tab" data-tab="assignments">Assignments</div>
+                <div class="nav-tab" data-tab="tests">Tests & Assessments</div>
+                <div class="nav-tab" data-tab="corrections">Copy Corrections</div>
+                <div class="nav-tab" data-tab="attendance">Attendance</div>
+                <div class="nav-tab" data-tab="discipline">Discipline</div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <section class="content-section active" id="dashboard">
+                <div class="dashboard-summary">
+                    <div class="section-header">
+                        <h2 class="section-title">Academic Overview</h2>
+                    </div>
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <div class="summary-icon icon-blue">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h3 id="totalSubjects">-</h3>
+                                <p>Subjects</p>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon icon-green">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h3 id="completedAssignments">-</h3>
+                                <p>Completed Assignments</p>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon icon-yellow">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h3 id="pendingAssignments">-</h3>
+                                <p>Pending Assignments</p>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon icon-red">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h3 id="attendancePercentage">-</h3>
+                                <p>Attendance</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Cards -->
+                <div class="section-header">
+                    <h2 class="section-title">Subject Performance</h2>
+                </div>
+                <div class="progress-cards" id="subjectProgressCards">
+                    <!-- Will be populated by JavaScript -->
+                    <div class="loading">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+
+                <!-- Recent Tests -->
+                <div class="section-header">
+                    <h2 class="section-title">Recent Test Results</h2>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Test Name</th>
+                                <th>Date</th>
+                                <th>Marks</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentTestsTable">
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Subjects Section -->
+            <section class="content-section" id="subjects">
+                <div class="section-header">
+                    <h2 class="section-title">Subject Activities</h2>
+                    <div class="section-actions">
+                        <select class="filter-dropdown" id="subjectFilter">
+                            <option value="all">All Subjects</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Activity</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subjectActivitiesTable">
+                            <!-- Will be populated by JavaScript -->
+                            <tr>
+                                <td colspan="5" class="loading">
+                                    <div class="spinner"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Assignments Section -->
+            <section class="content-section" id="assignments">
+                <div class="section-header">
+                    <h2 class="section-title">Assignments</h2>
+                    <div class="section-actions">
+                        <select class="filter-dropdown" id="assignmentStatusFilter">
+                            <option value="all">All Status</option>
+                            <option value="complete">Complete</option>
+                            <option value="pending">Pending</option>
+                            <option value="overdue">Overdue</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Assignment</th>
+                                <th>Assigned Date</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assignmentsTable">
+                            <!-- Will be populated by JavaScript -->
+                            <tr>
+                                <td colspan="6" class="loading">
+                                    <div class="spinner"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Tests Section -->
+            <section class="content-section" id="tests">
+                <div class="section-header">
+                    <h2 class="section-title">Tests & Assessments</h2>
+                    <div class="section-actions">
+                        <select class="filter-dropdown" id="testSubjectFilter">
+                            <option value="all">All Subjects</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Test Name</th>
+                                <th>Date</th>
+                                <th>Max Marks</th>
+                                <th>Marks Obtained</th>
+                                <th>Percentage</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody id="testsTable">
+                            <!-- Will be populated by JavaScript -->
+                            <tr>
+                                <td colspan="7" class="loading">
+                                    <div class="spinner"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Copy Corrections Section -->
+            <section class="content-section" id="corrections">
+                <div class="section-header">
+                    <h2 class="section-title">Copy Corrections</h2>
+                    <div class="section-actions">
+                        <select class="filter-dropdown" id="correctionSubjectFilter">
+                            <option value="all">All Subjects</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Copy Type</th>
+                                <th>Correction Date</th>
+                                <th>Areas of Improvement</th>
+                                <th>Teacher's Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="correctionsTable">
+                            <!-- Will be populated by JavaScript -->
+                            <tr>
+                                <td colspan="5" class="loading">
+                                    <div class="spinner"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Attendance Section -->
+            <section class="content-section" id="attendance">
+                <div class="section-header">
+                    <h2 class="section-title">Attendance Record</h2>
+                    <div class="section-actions">
+                        <select class="filter-dropdown" id="attendanceMonthFilter">
+                            <option value="all">All Months</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Working Days</th>
+                                <th>Present</th>
+                                <th>Absent</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceTable">
+                            <!-- Will be populated by JavaScript -->
+                            <tr>
+                                <td colspan="5" class="loading">
+                                    <div class="spinner"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Discipline Section -->
+            <section class="content-section" id="discipline">
+                <div class="section-header">
+                    <h2 class="section-title">Discipline Record</h2>
+                    <div class="section-actions">
+                        <select class="filter-dropdown" id="disciplineTypeFilter">
+                            <option value="all">All Types</option>
+                        </select>
+                        <select class="filter-dropdown" id="disciplineStatusFilter">
+                            <option value="all">All Status</option>
+                            <option value="resolved">Resolved</option>
+                            <option value="pending">Pending</option>
+                            <option value="escalated">Escalated</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Action Taken</th>
+                                <th>Teacher</th>
+                                <th>Status</th>
+                                <th>Points</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="disciplineTable">
+                            <!-- Will be populated by JavaScript -->
+                            <tr>
+                                <td colspan="8" class="loading">
+                                    <div class="spinner"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2025 PM SHRI KENDRIYA VIDYALAYA, LUCKNOW. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Handle student photo loading errors
+        document.addEventListener('DOMContentLoaded', function() {
+            const studentPhoto = document.getElementById('studentPhoto');
+            
+            studentPhoto.onerror = function() {
+                console.log('Student photo failed to load, using placeholder');
+                this.src = 'https://i.ibb.co/23DtsDdF/kvs-logo-new.jpg';  // Show school logo as fallback
+            };
+        });
+        
+        // Login form handling
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Document loaded, initializing login form');
+            
+            // Login button click handler
+            document.getElementById('loginButton').addEventListener('click', function() {
+                console.log('Login button clicked');
+                
+                const admissionInput = document.getElementById('admissionInput');
+                const admissionError = document.getElementById('admissionError');
+                const admissionNumber = admissionInput.value.trim();
+                
+                console.log('Admission number entered:', admissionNumber);
+                
+                // Validate: must be exactly 5 digits
+                const isValid = /^\d{5}$/.test(admissionNumber);
+                console.log('Is valid format:', isValid);
+                
+                if (isValid) {
+                    // Store authentication locally
+                    localStorage.setItem('kv_authenticated', 'true');
+                    localStorage.setItem('kv_admission_number', admissionNumber);
+                    
+                    // Hide login, show content
+                    document.getElementById('loginOverlay').style.display = 'none';
+                    document.getElementById('mainContent').classList.add('authenticated');
+                    
+                    // Load student data
+                    initializeData();
+                } else {
+                    // Show error
+                    admissionInput.classList.add('error');
+                    admissionError.style.display = 'block';
+                }
+            });
+            
+            // Enter key handler for input field
+            document.getElementById('admissionInput').addEventListener('keyup', function(event) {
+                if (event.key === "Enter") {
+                    document.getElementById('loginButton').click();
+                }
+            });
+            
+            // Clear error on input focus
+            document.getElementById('admissionInput').addEventListener('focus', function() {
+                this.classList.remove('error');
+                document.getElementById('admissionError').style.display = 'none';
+            });
+            
+            // Check if user is already logged in
+            const isAuthenticated = localStorage.getItem('kv_authenticated');
+            if (isAuthenticated) {
+                console.log('User already authenticated, showing content');
+                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('mainContent').classList.add('authenticated');
+                initializeData(); // Load data for authenticated user
+            }
+        });
+        
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            console.log('Logout clicked');
+            localStorage.removeItem('kv_authenticated');
+            localStorage.removeItem('kv_admission_number');
+            location.reload();
+        });
+        
+        // Print functionality
+        document.getElementById('printBtn').addEventListener('click', () => {
+            window.print();
+        });
+
+        // Tab Navigation
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Hide all content sections
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Show content section corresponding to clicked tab
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // IMPROVED: Fetch data function with better error handling for horizontal data structure
+        async function fetchData() {
+            const API_BASE_URL = 'https://student-portfolio-api.onrender.com';
+            
+            try {
+                // Get the admission number from localStorage
+                const admissionNumber = localStorage.getItem('kv_admission_number');
+                console.log(`Fetching data for admission number: ${admissionNumber}`);
+                
+                // Check API status first
+                try {
+                    console.log(`Checking API status at: ${API_BASE_URL}/api/status`);
+                    const statusResponse = await fetch(`${API_BASE_URL}/api/status`);
+                    const statusData = await statusResponse.json();
+                    console.log('API Status:', statusData);
+                    
+                    if (!statusData.sheetsConfigured) {
+                        console.warn('Google Sheets not properly configured on backend');
+                    }
+                } catch (statusError) {
+                    console.error('API Status Check Failed:', statusError);
+                    throw new Error('Cannot connect to the backend server. Please try again later.');
+                }
+                
+                // Fetch student data
+                console.log(`Making request to: ${API_BASE_URL}/api/student-data?admission=${admissionNumber}`);
+                const dataResponse = await fetch(`${API_BASE_URL}/api/student-data?admission=${admissionNumber}`);
+                
+                if (!dataResponse.ok) {
+                    const errorText = await dataResponse.text();
+                    console.error('API Error Response:', errorText);
+                    throw new Error(`Failed to fetch student data: ${dataResponse.status} ${dataResponse.statusText}`);
+                }
+                
+                const data = await dataResponse.json();
+                console.log('Successfully received data:', data);
+                
+                // Log subject activities for debugging
+                if (data.subjectActivities && Array.isArray(data.subjectActivities)) {
+                    console.log('Subject Activities Data:', data.subjectActivities);
+                    // Debug log to see all properties for each activity
+                    data.subjectActivities.forEach((activity, index) => {
+                        console.log(`Activity ${index} keys:`, Object.keys(activity));
+                    });
+                }
+                
+                // Validate data structure
+                validateDataStructure(data);
+                
+                return data;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                
+                // Show error message to user
+                alert(`Error loading data: ${error.message}. Please try again later.`);
+                
+                // Return a basic default data structure
+                return {
+                    studentInfo: {
+                        name: "Demo Student",
+                        class: "Class X-A",
+                        admissionNo: localStorage.getItem('kv_admission_number') || "12345",
+                        rollNo: "01",
+                        dob: "01-01-2010",
+                        contact: "9876543210",
+                        photoUrl: "https://i.ibb.co/23DtsDdF/kvs-logo-new.jpg" // Use school logo as fallback
+                    },
+                    summary: {
+                        totalSubjects: 0,
+                        completedAssignments: 0,
+                        pendingAssignments: 0,
+                        attendancePercentage: "0.0%"
+                    },
+                    subjectProgress: [],
+                    recentTests: [],
+                    subjectActivities: [],
+                    assignments: [],
+                    tests: [],
+                    corrections: [],
+                    attendance: [],
+                    discipline: [] // Add empty discipline array
+                };
+            }
+        }
+        
+        // Validate data structure to ensure it matches frontend expectations
+        function validateDataStructure(data) {
+            if (!data) {
+                throw new Error('No data received from API');
+            }
+            
+            // Basic validation of required objects and arrays
+            if (!data.studentInfo) {
+                console.warn('Missing studentInfo in data');
+                data.studentInfo = {
+                    name: "Unknown Student",
+                    class: "Unknown Class",
+                    admissionNo: localStorage.getItem('kv_admission_number') || "00000",
+                    rollNo: "00",
+                    dob: "-",
+                    contact: "-",
+                    photoUrl: "https://i.ibb.co/23DtsDdF/kvs-logo-new.jpg" 
+                };
+            }
+            
+            if (!Array.isArray(data.subjectProgress)) {
+                console.warn('subjectProgress is not an array');
+                data.subjectProgress = [];
+            }
+            
+            if (!Array.isArray(data.subjectActivities)) {
+                console.warn('subjectActivities is not an array');
+                data.subjectActivities = [];
+            }
+            
+            if (!Array.isArray(data.assignments)) {
+                console.warn('assignments is not an array');
+                data.assignments = [];
+            }
+            
+            if (!Array.isArray(data.tests)) {
+                console.warn('tests is not an array');
+                data.tests = [];
+            }
+            
+            if (!Array.isArray(data.recentTests)) {
+                console.warn('recentTests is not an array');
+                data.recentTests = [];
+            }
+            
+            if (!Array.isArray(data.corrections)) {
+                console.warn('corrections is not an array');
+                data.corrections = [];
+            }
+            
+            if (!Array.isArray(data.attendance)) {
+                console.warn('attendance is not an array');
+                data.attendance = [];
+            }
+            
+            // Add validation for discipline records
+            if (!Array.isArray(data.discipline)) {
+                console.warn('discipline is not an array');
+                data.discipline = [];
+            }
+            
+            // Check summary object
+            if (!data.summary) {
+                console.warn('Missing summary in data');
+                // Create a summary based on available data
+                const completedAssignments = Array.isArray(data.assignments) 
+                    ? data.assignments.filter(a => (a.status || '').toLowerCase().trim() === 'complete').length
+                    : 0;
+                    
+                const pendingAssignments = Array.isArray(data.assignments)
+                    ? data.assignments.filter(a => (a.status || '').toLowerCase().trim() === 'pending').length
+                    : 0;
+                    
+                const overallAttendance = Array.isArray(data.attendance) && data.attendance.length > 0
+                    ? data.attendance.reduce((sum, month) => sum + (parseFloat(month.percentage) || 0), 0) / data.attendance.length
+                    : 0;
+                    
+                data.summary = {
+                    totalSubjects: Array.isArray(data.subjectProgress) ? data.subjectProgress.length : 0,
+                    completedAssignments,
+                    pendingAssignments,
+                    attendancePercentage: `${overallAttendance.toFixed(1)}%`
+                };
+            }
+            
+            return data;
+        }
+
+        // Populate Student Information
+        function populateStudentInfo(data) {
+            if (!data) return;
+            
+            document.getElementById('studentName').textContent = data.name || 'Unknown';
+            document.getElementById('studentClass').textContent = data.class || 'Unknown';
+            document.getElementById('admissionNo').textContent = data.admissionNo || '-';
+            document.getElementById('rollNo').textContent = data.rollNo || '-';
+            document.getElementById('dob').textContent = data.dob || '-';
+            document.getElementById('contact').textContent = data.contact || '-';
+            
+            // Only update photo if there's a valid URL
+            if (data.photoUrl) {
+                document.getElementById('studentPhoto').src = data.photoUrl;
+            }
+        }
+
+        // Calculate and update dashboard summary
+        function updateDashboardSummary(data) {
+            console.log('Updating dashboard summary with latest counts');
+            
+            // Get completed and pending assignment counts directly from the assignments array
+            const completedAssignments = Array.isArray(data.assignments) 
+                ? data.assignments.filter(a => (a.status || '').toLowerCase().trim() === 'complete').length
+                : 0;
+                
+            const pendingAssignments = Array.isArray(data.assignments)
+                ? data.assignments.filter(a => (a.status || '').toLowerCase().trim() === 'pending').length
+                : 0;
+            
+            // Get total unique subjects from assignments
+            const uniqueSubjects = new Set();
+            if (Array.isArray(data.assignments)) {
+                data.assignments.forEach(assignment => {
+                    if (assignment.subject) {
+                        uniqueSubjects.add(assignment.subject);
+                    }
+                });
+            }
+            
+            // Get attendance percentage
+            let attendancePercentage = "0.0%";
+            if (data.summary && data.summary.attendancePercentage) {
+                attendancePercentage = data.summary.attendancePercentage;
+            } else if (Array.isArray(data.attendance) && data.attendance.length > 0) {
+                const avgAttendance = data.attendance.reduce((sum, month) => {
+                    const percentage = parseFloat(month.percentage || 0);
+                    return sum + (isNaN(percentage) ? 0 : percentage);
+                }, 0) / data.attendance.length;
+                
+                attendancePercentage = `${avgAttendance.toFixed(1)}%`;
+            }
+            
+            // Update the DOM
+            document.getElementById('totalSubjects').textContent = uniqueSubjects.size || '0';
+            document.getElementById('completedAssignments').textContent = completedAssignments || '0';
+            document.getElementById('pendingAssignments').textContent = pendingAssignments || '0';
+            document.getElementById('attendancePercentage').textContent = attendancePercentage;
+            
+            // Also update the summary object in data (in case it's used elsewhere)
+            if (!data.summary) {
+                data.summary = {};
+            }
+            
+            data.summary.totalSubjects = uniqueSubjects.size;
+            data.summary.completedAssignments = completedAssignments;
+            data.summary.pendingAssignments = pendingAssignments;
+            data.summary.attendancePercentage = attendancePercentage;
+            
+            console.log(`Dashboard updated: ${uniqueSubjects.size} subjects, ${completedAssignments} completed assignments, ${pendingAssignments} pending assignments`);
+        }
+
+        // Populate Subject Progress Cards
+        function populateSubjectProgress(data) {
+            const container = document.getElementById('subjectProgressCards');
+            container.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="empty-state">No subject progress data available.</div>';
+                return;
+            }
+
+            data.forEach(subject => {
+                // Ensure progress is a valid number
+                let progress = 0;
+                if (subject.progress !== null && subject.progress !== undefined) {
+                    progress = parseFloat(subject.progress);
+                    if (isNaN(progress)) progress = 0;
+                }
+                
+                const colorClass = progress >= 90 ? '#10b981' : 
+                                progress >= 80 ? '#3b82f6' : 
+                                progress >= 70 ? '#f59e0b' : '#ef4444';
+                
+                const card = document.createElement('div');
+                card.className = 'progress-card';
+                card.innerHTML = `
+                    <div class="progress-title">${subject.subject || 'Unknown Subject'}</div>
+                    <div class="progress-bar">
+                        <div class="progress-value" style="width: ${progress}%; background-color: ${colorClass};"></div>
+                    </div>
+                    <div class="progress-stats">
+                        <div class="progress-label">Progress</div>
+                        <div class="progress-percentage">${progress}%</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Populate Recent Tests
+        function populateRecentTests(data) {
+            const tbody = document.getElementById('recentTestsTable');
+            tbody.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No recent test data available.</td></tr>';
+                return;
+            }
+
+            data.forEach(test => {
+                const gradeClass = test.grade === 'A' ? 'grade-a' : 
+                                test.grade === 'B' ? 'grade-b' : 
+                                test.grade === 'C' ? 'grade-c' : 'grade-d';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${test.subject || 'Unknown'}</td>
+                    <td>${test.name || 'Unknown'}</td>
+                    <td>${test.date || '-'}</td>
+                    <td>${test.marks || '-'}</td>
+                    <td><span class="grade-badge ${gradeClass}">${test.grade || '-'}</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Find the status value from any status property in the activity object
+        function findActivityStatus(activity) {
+            // Check if there's a direct status property
+            if (activity.status) {
+                console.log(`Found direct status property: ${activity.status}`);
+                return activity.status;
+            }
+            
+            // Look for properties that end with 'status' or 'status1', 'status2', etc.
+            for (const key in activity) {
+                if (key.toLowerCase().endsWith('status') || /status\d+$/i.test(key)) {
+                    console.log(`Found status in property ${key}: ${activity[key]}`);
+                    return activity[key];
+                }
+            }
+            
+            console.log('No status property found, defaulting to "Pending"');
+            return 'Pending'; // Default if no status is found
+        }
+
+   // Enhanced function to handle links with custom display names
+function makeLinksClickable(text) {
+    if (!text || text === '-') return text;
+    
+    // Check for HTML links
+    const htmlLinkRegex = /<a\s+(?:[^>]*?\s+)?href=["']([^"']*)["'][^>]*>(.*?)<\/a>/g;
+    if (htmlLinkRegex.test(text)) {
+        return text.replace(htmlLinkRegex, function(match, url, linkText) {
+            return `<a href="${url}" target="_blank">${linkText}</a>`;
+        });
+    }
+    
+    // Check for "Name | URL" pattern (text and URL separated by pipe)
+    const pipePattern = /^(.+?)\s*\|\s*(https?:\/\/[^\s]+)$/;
+    const pipeMatch = text.match(pipePattern);
+    if (pipeMatch) {
+        const linkText = pipeMatch[1].trim();
+        const url = pipeMatch[2].trim();
+        return `<a href="${url}" target="_blank">${linkText}</a>`;
+    }
+    
+    // Check for "Name: URL" pattern
+    const colonPattern = /^(.+?)\s*:\s*(https?:\/\/[^\s]+)$/;
+    const colonMatch = text.match(colonPattern);
+    if (colonMatch) {
+        const linkText = colonMatch[1].trim();
+        const url = colonMatch[2].trim();
+        return `<a href="${url}" target="_blank">${linkText}</a>`;
+    }
+    
+    // Check if this is just a URL - in which case we display it as is but make it clickable
+    const urlRegex = /^(https?:\/\/[^\s]+)$/;
+    if (urlRegex.test(text)) {
+        return `<a href="${text}" target="_blank">${text}</a>`;
+    }
+    
+    // Return the original text if no links are found
+    return text;
+}
+
+// Populate Subject Activities - FIXED: Now checking any status1, status2 fields
+function populateSubjectActivities(data) {
+    const tbody = document.getElementById('subjectActivitiesTable');
+    tbody.innerHTML = '';
+
+    if (!data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No subject activities available.</td></tr>';
+        return;
+    }
+
+    console.log('Populating subject activities with data:', data);
+
+    data.forEach(activity => {
+        // Debug: Log all keys to find status fields
+        console.log(`Activity keys for ${activity.subject || 'unknown'}:`, Object.keys(activity));
+        
+        // Find any property that might contain status
+        const statusValue = findActivityStatus(activity);
+        console.log(`Found status value: "${statusValue}"`);
+        
+        // Normalize the found status
+        const status = (statusValue || '').toLowerCase().trim();
+        console.log(`Normalized status: "${status}"`);
+        
+        // Simple direct comparison, exactly like the assignments function
+        const statusClass = status === 'complete' ? 'status-complete' : 
+                       status === 'pending' ? 'status-pending' : 'status-overdue';
+        
+        // Use the original status text with proper capitalization for display
+        const statusText = statusValue 
+            ? statusValue.charAt(0).toUpperCase() + statusValue.slice(1).toLowerCase()
+            : 'Pending';
+        
+        console.log(`Final status for ${activity.subject}: class=${statusClass}, text=${statusText}`);
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${activity.subject || 'Unknown'}</td>
+            <td>${activity.activity || 'Unknown'}</td>
+            <td>${activity.date || '-'}</td>
+            <td>${makeLinksClickable(activity.description) || '-'}</td>
+            <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+        // Populate Assignments
+        function populateAssignments(data) {
+            const tbody = document.getElementById('assignmentsTable');
+            tbody.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No assignments available.</td></tr>';
+                return;
+            }
+
+            data.forEach(assignment => {
+                // Normalize status to lowercase and trim any whitespace
+                const status = (assignment.status || '').toLowerCase().trim();
+                const statusClass = status === 'complete' ? 'status-complete' : 
+                                 status === 'pending' ? 'status-pending' : 'status-overdue';
+                
+                const statusText = assignment.status 
+                    ? assignment.status.charAt(0).toUpperCase() + assignment.status.slice(1).toLowerCase()
+                    : 'Pending';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${assignment.subject || 'Unknown'}</td>
+                    <td>${assignment.name || 'Unknown'}</td>
+                    <td>${assignment.assignedDate || '-'}</td>
+                    <td>${assignment.dueDate || '-'}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td>${assignment.remarks || '-'}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Populate Tests
+        function populateTests(data) {
+            const tbody = document.getElementById('testsTable');
+            tbody.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No test data available.</td></tr>';
+                return;
+            }
+
+            data.forEach(test => {
+                // Ensure percentage is a valid number and format it
+                let percentage = 0;
+                if (test.percentage !== null && test.percentage !== undefined) {
+                    percentage = parseFloat(test.percentage);
+                    if (isNaN(percentage)) percentage = 0;
+                }
+                
+                const gradeClass = test.grade === 'A' ? 'grade-a' : 
+                                test.grade === 'B' ? 'grade-b' : 
+                                test.grade === 'C' ? 'grade-c' : 'grade-d';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${test.subject || 'Unknown'}</td>
+                    <td>${test.name || 'Unknown'}</td>
+                    <td>${test.date || '-'}</td>
+                    <td>${test.maxMarks || '0'}</td>
+                    <td>${test.marksObtained || '0'}</td>
+                    <td>${percentage.toFixed(1)}%</td>
+                    <td><span class="grade-badge ${gradeClass}">${test.grade || '-'}</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Populate Copy Corrections
+        function populateCorrections(data) {
+            const tbody = document.getElementById('correctionsTable');
+            tbody.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No copy correction data available.</td></tr>';
+                return;
+            }
+
+            data.forEach(correction => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${correction.subject || 'Unknown'}</td>
+                    <td>${correction.copyType || 'Unknown'}</td>
+                    <td>${correction.date || '-'}</td>
+                    <td>${correction.improvements || '-'}</td>
+                    <td>${correction.remarks || '-'}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Populate Attendance
+        function populateAttendance(data) {
+            const tbody = document.getElementById('attendanceTable');
+            tbody.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No attendance data available.</td></tr>';
+                return;
+            }
+
+            data.forEach(month => {
+                // Ensure percentage is a valid number
+                let percentage = 0;
+                if (month.percentage !== null && month.percentage !== undefined) {
+                    percentage = parseFloat(month.percentage);
+                    if (isNaN(percentage)) percentage = 0;
+                }
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${month.month || 'Unknown'}</td>
+                    <td>${month.workingDays || '0'}</td>
+                    <td>${month.present || '0'}</td>
+                    <td>${month.absent || '0'}</td>
+                    <td>${percentage.toFixed(1)}%</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Find discipline status from any status property
+        function findDisciplineStatus(item) {
+            // Check for direct status property
+            if (item.status) {
+                return item.status;
+            }
+            
+            // Look for properties that end with 'status' or 'status1', 'status2', etc.
+            for (const key in item) {
+                if (key.toLowerCase().endsWith('status') || /status\d+$/i.test(key)) {
+                    return item[key];
+                }
+            }
+            
+            return 'Pending'; // Default if no status is found
+        }
+
+        // Populate Discipline Records - NEW
+        function populateDiscipline(data) {
+            const tbody = document.getElementById('disciplineTable');
+            tbody.innerHTML = '';
+
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No discipline records available.</td></tr>';
+                return;
+            }
+
+            console.log('Populating discipline data:', data);
+
+            data.forEach(item => {
+                // Find status from potential multiple fields
+                const statusValue = findDisciplineStatus(item);
+                const status = (statusValue || '').toLowerCase().trim();
+                
+                // Determine status class based on value
+                let statusClass;
+                if (status === 'resolved') {
+                    statusClass = 'status-resolved';
+                } else if (status === 'pending') {
+                    statusClass = 'status-pending';
+                } else if (status === 'escalated') {
+                    statusClass = 'status-escalated';
+                } else {
+                    statusClass = 'status-pending'; // Default
+                }
+                
+                // Format the status text with proper capitalization
+                const statusText = statusValue
+                    ? statusValue.charAt(0).toUpperCase() + statusValue.slice(1).toLowerCase()
+                    : 'Pending';
+                
+                // Format points with badge if present
+                const pointsDisplay = item.points 
+                    ? `<span class="points-badge">-${item.points}</span>` 
+                    : '-';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.date || '-'}</td>
+                    <td>${item.type || '-'}</td>
+                    <td>${item.description || '-'}</td>
+                    <td>${item.action || '-'}</td>
+                    <td>${item.teacher || '-'}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    <td>${pointsDisplay}</td>
+                    <td>${item.remarks || '-'}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Filter handlers - Updated for better error handling with empty arrays
+        function setupFilters(data) {
+            // Get unique subjects from all data
+            const subjects = getUniqueSubjects(data);
+            
+            // Also get unique months for attendance filter
+            const months = getUniqueMonths(data.attendance);
+            
+            // Get unique discipline types
+            const disciplineTypes = getUniqueDisciplineTypes(data.discipline);
+            
+            // Update filter dropdowns
+            updateFilterOptions('subjectFilter', subjects);
+            updateFilterOptions('testSubjectFilter', subjects);
+            updateFilterOptions('correctionSubjectFilter', subjects);
+            updateFilterOptions('attendanceMonthFilter', months);
+            updateFilterOptions('disciplineTypeFilter', disciplineTypes);
+            
+            // Subject filter for activities - uses same approach for consistency
+            document.getElementById('subjectFilter').addEventListener('change', e => {
+                const selectedSubject = e.target.value;
+                let filteredData = data.subjectActivities || [];
+                
+                if (selectedSubject !== 'all' && filteredData.length > 0) {
+                    filteredData = filteredData.filter(activity => activity.subject === selectedSubject);
+                }
+                
+                populateSubjectActivities(filteredData);
+            });
+            
+            // Assignment status filter
+            document.getElementById('assignmentStatusFilter').addEventListener('change', e => {
+                const selectedStatus = e.target.value;
+                let filteredData = data.assignments || [];
+                
+                if (selectedStatus !== 'all' && filteredData.length > 0) {
+                    filteredData = filteredData.filter(assignment => 
+                        (assignment.status || '').toLowerCase().trim() === selectedStatus);
+                }
+                
+                populateAssignments(filteredData);
+            });
+            
+            // Test subject filter
+            document.getElementById('testSubjectFilter').addEventListener('change', e => {
+                const selectedSubject = e.target.value;
+                let filteredData = data.tests || [];
+                
+                if (selectedSubject !== 'all' && filteredData.length > 0) {
+                    filteredData = filteredData.filter(test => test.subject === selectedSubject);
+                }
+                
+                populateTests(filteredData);
+            });
+            
+            // Correction subject filter
+            document.getElementById('correctionSubjectFilter').addEventListener('change', e => {
+                const selectedSubject = e.target.value;
+                let filteredData = data.corrections || [];
+                
+                if (selectedSubject !== 'all' && filteredData.length > 0) {
+                    filteredData = filteredData.filter(correction => correction.subject === selectedSubject);
+                }
+                
+                populateCorrections(filteredData);
+            });
+            
+            // Attendance month filter
+            document.getElementById('attendanceMonthFilter').addEventListener('change', e => {
+                const selectedMonth = e.target.value;
+                let filteredData = data.attendance || [];
+                
+                if (selectedMonth !== 'all' && filteredData.length > 0) {
+                    filteredData = filteredData.filter(record => record.month === selectedMonth);
+                }
+                
+                populateAttendance(filteredData);
+            });
+            
+            // Discipline type filter
+            document.getElementById('disciplineTypeFilter').addEventListener('change', e => {
+                applyDisciplineFilters(data);
+            });
+            
+            // Discipline status filter
+            document.getElementById('disciplineStatusFilter').addEventListener('change', e => {
+                applyDisciplineFilters(data);
+            });
+        }
+        
+        // Apply both discipline filters together
+        function applyDisciplineFilters(data) {
+            const selectedType = document.getElementById('disciplineTypeFilter').value;
+            const selectedStatus = document.getElementById('disciplineStatusFilter').value;
+            
+            let filteredData = data.discipline || [];
+            
+            // Apply type filter
+            if (selectedType !== 'all' && filteredData.length > 0) {
+                filteredData = filteredData.filter(item => item.type === selectedType);
+            }
+            
+            // Apply status filter
+            if (selectedStatus !== 'all' && filteredData.length > 0) {
+                filteredData = filteredData.filter(item => {
+                    const status = findDisciplineStatus(item);
+                    return (status || '').toLowerCase().trim() === selectedStatus;
+                });
+            }
+            
+            populateDiscipline(filteredData);
+        }
+        
+        // Helper function to get unique subjects across all data
+        function getUniqueSubjects(data) {
+            const subjects = new Set();
+            
+            // Add subjects from each data array
+            if (data.subjectProgress && Array.isArray(data.subjectProgress)) {
+                data.subjectProgress.forEach(item => {
+                    if (item && item.subject) subjects.add(item.subject);
+                });
+            }
+            
+            if (data.subjectActivities && Array.isArray(data.subjectActivities)) {
+                data.subjectActivities.forEach(item => {
+                    if (item && item.subject) subjects.add(item.subject);
+                });
+            }
+            
+            if (data.assignments && Array.isArray(data.assignments)) {
+                data.assignments.forEach(item => {
+                    if (item && item.subject) subjects.add(item.subject);
+                });
+            }
+            
+            if (data.tests && Array.isArray(data.tests)) {
+                data.tests.forEach(item => {
+                    if (item && item.subject) subjects.add(item.subject);
+                });
+            }
+            
+            if (data.corrections && Array.isArray(data.corrections)) {
+                data.corrections.forEach(item => {
+                    if (item && item.subject) subjects.add(item.subject);
+                });
+            }
+            
+            return Array.from(subjects).sort();
+        }
+        
+        // Helper function to get unique months from attendance data
+        function getUniqueMonths(attendanceData) {
+            if (!attendanceData || !Array.isArray(attendanceData)) return [];
+            
+            const months = new Set();
+            attendanceData.forEach(item => {
+                if (item && item.month) months.add(item.month);
+            });
+            
+            return Array.from(months).sort();
+        }
+        
+        // Helper function to get unique discipline types
+        function getUniqueDisciplineTypes(disciplineData) {
+            if (!disciplineData || !Array.isArray(disciplineData)) return [];
+            
+            const types = new Set();
+            disciplineData.forEach(item => {
+                if (item && item.type) types.add(item.type);
+            });
+            
+            return Array.from(types).sort();
+        }
+        
+        // Helper function to update filter dropdown options
+        function updateFilterOptions(filterId, options) {
+            const filter = document.getElementById(filterId);
+            if (!filter) return;
+            
+            // Keep the "All" option
+            const allOption = filter.options[0];
+            
+            // Clear existing options except "All"
+            filter.innerHTML = '';
+            filter.appendChild(allOption);
+            
+            // Add new options
+            options.forEach(option => {
+                if (!option) return; // Skip empty options
+                
+                const optionEl = document.createElement('option');
+                optionEl.value = option;
+                optionEl.textContent = option;
+                filter.appendChild(optionEl);
+            });
+        }
+
+        // Initialize all data with improved error handling
+        async function initializeData() {
+            try {
+                console.log('Initializing data');
+                
+                // Show loading indicators
+                document.querySelectorAll('.loading').forEach(loader => {
+                    loader.style.display = 'flex';
+                });
+                
+                const data = await fetchData();
+                
+                // Hide all loading indicators
+                document.querySelectorAll('.loading').forEach(loader => {
+                    loader.style.display = 'none';
+                });
+                
+                // Update dashboard counts before showing data
+                updateDashboardSummary(data);
+                
+                // Populate all sections with data
+                if (data.studentInfo) {
+                    populateStudentInfo(data.studentInfo);
+                }
+                
+                populateSubjectProgress(data.subjectProgress || []);
+                populateRecentTests(data.recentTests || []);
+                populateSubjectActivities(data.subjectActivities || []);
+                populateAssignments(data.assignments || []);
+                populateTests(data.tests || []);
+                populateCorrections(data.corrections || []);
+                populateAttendance(data.attendance || []);
+                populateDiscipline(data.discipline || []); // New discipline table
+                
+                // Setup filters
+                setupFilters(data);
+            } catch (error) {
+                console.error('Error loading data:', error);
+                // Display error message to user
+                document.querySelectorAll('.loading').forEach(loader => {
+                    loader.innerHTML = `<p>Error loading data: ${error.message}</p>`;
+                });
+            }
+        }
+    </script>
+</body>
+</html>
